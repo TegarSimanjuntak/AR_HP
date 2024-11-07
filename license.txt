@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tori Gate Game asset
+* source:	https://sketchfab.com/3d-models/tori-gate-game-asset-f4758ba5820e4398b5b60c70c2798881
+* author:	ReeTesh_7338 (https://sketchfab.com/ReeTesh_7338)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tori Gate Game asset" (https://sketchfab.com/3d-models/tori-gate-game-asset-f4758ba5820e4398b5b60c70c2798881) by ReeTesh_7338 (https://sketchfab.com/ReeTesh_7338) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
