@@ -39,7 +39,7 @@
 </head>
 <body>
    <a-scene embedded arjs="sourceType: webcam;">
-      <a-entity id="model" gltf-model="scene.gltf" scale="0.3 0.3 0.3" position="0 -1.2 -5" rotation="0 90 0"></a-entity>
+      <a-entity id="model" gltf-model="scene.gltf" scale="0.3 0.3 0.3" position="0 -1.2 -7" rotation="0 90 0"></a-entity>
       <a-entity id="camera" camera="zoom: 1; fov: 60;"></a-entity>
    </a-scene>
 
@@ -71,7 +71,7 @@
          model.setAttribute("scale", scale);
 
          // Posisi model agar tetap di tengah layar
-         model.setAttribute("position", "0 -1 -3");
+         model.setAttribute("position", "0 -2 -11");
       }
 
       // Update annotation position on the screen
