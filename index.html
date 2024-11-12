@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>Kotak Web AR Example Without Marker</title>
    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
@@ -40,13 +40,13 @@
 <body>
    <a-scene embedded arjs="sourceType: webcam;">
       <a-entity id="model" gltf-model="scene.gltf" scale="0.3 0.3 0.3" position="0 -1.2 -5" rotation="0 90 0"></a-entity>
-      <a-entity id="camera" camera></a-entity>
+      <a-entity id="camera" camera="zoom: 1; fov: 60;"></a-entity>
    </a-scene>
 
    <!-- Anotasi -->
    <div id="annotation"></div>
    <div class="info-box" id="info-box">Ini adalah informasi tentang balok 3D.</div>
-   <h1>makan</h1>
+
    <script>
       const model = document.querySelector("#model");
       const camera = document.querySelector("#camera");
@@ -59,13 +59,12 @@
 
       // Update model size and position
       function updateModelSize() {
-         // Menghitung rasio ukuran layar (lebar atau tinggi) terhadap ukuran standar
          const screenWidth = window.innerWidth;
          const screenHeight = window.innerHeight;
 
          // Menentukan ukuran model berdasarkan ukuran layar
-         const scaleX = screenWidth / 1000; // Misalnya, 1000 adalah ukuran standar
-         const scaleY = screenHeight / 1000; // Misalnya, 1000 adalah ukuran standar
+         const scaleX = screenWidth / 1000; 
+         const scaleY = screenHeight / 1000; 
          const scale = `${Math.min(scaleX, scaleY)} ${Math.min(scaleX, scaleY)} ${Math.min(scaleX, scaleY)}`;
 
          // Menyesuaikan skala model
@@ -73,17 +72,6 @@
 
          // Posisi model agar tetap di tengah layar
          model.setAttribute("position", "0 -1 -3");
-
-         // Menyesuaikan posisi kamera dan FOV berdasarkan ukuran layar
-         adjustCamera();
-      }
-
-      // Menyesuaikan kamera berdasarkan perangkat
-      function adjustCamera() {
-         const isMobile = window.innerWidth < 768;
-         // Menyesuaikan posisi dan FOV kamera untuk mobile atau desktop
-         camera.setAttribute("position", isMobile ? "0 1.5 3" : "0 1.2 5");
-         camera.setAttribute("camera", "fov", isMobile ? 70 : 60);
       }
 
       // Update annotation position on the screen
@@ -122,17 +110,17 @@
       // Event listener on window resize
       window.addEventListener("resize", updateModelSize);
 
-      // Event listeners for dragging the model
-      window.addEventListener("mousedown", (event) => {
+      // Event listeners for dragging the model (mouse and touch)
+      function startDrag(event) {
          isDragging = true;
-         lastX = event.clientX;
-         lastY = event.clientY;
-      });
+         lastX = event.clientX || event.touches[0].clientX;
+         lastY = event.clientY || event.touches[0].clientY;
+      }
 
-      window.addEventListener("mousemove", (event) => {
+      function dragMove(event) {
          if (isDragging) {
-            const deltaX = event.clientX - lastX;
-            const deltaY = event.clientY - lastY;
+            const deltaX = (event.clientX || event.touches[0].clientX) - lastX;
+            const deltaY = (event.clientY || event.touches[0].clientY) - lastY;
             const currentRotation = model.getAttribute("rotation");
 
             model.setAttribute("rotation", {
@@ -141,14 +129,23 @@
                z: currentRotation.z
             });
 
-            lastX = event.clientX;
-            lastY = event.clientY;
+            lastX = event.clientX || event.touches[0].clientX;
+            lastY = event.clientY || event.touches[0].clientY;
          }
-      });
+      }
 
-      window.addEventListener("mouseup", () => {
+      function endDrag() {
          isDragging = false;
-      });
+      }
+
+      // Mouse and touch events for dragging
+      window.addEventListener("mousedown", startDrag);
+      window.addEventListener("mousemove", dragMove);
+      window.addEventListener("mouseup", endDrag);
+
+      window.addEventListener("touchstart", startDrag);
+      window.addEventListener("touchmove", dragMove);
+      window.addEventListener("touchend", endDrag);
 
       // Initial setup
       updateModelSize();
