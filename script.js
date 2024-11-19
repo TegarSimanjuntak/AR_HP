@@ -36,7 +36,7 @@
          model.setAttribute("position", "0 -1 -5");
 
          // Menentukan ukuran anotasi berdasarkan ukuran layar
-         const annotationSize = Math.max(10, Math.min(20, screenWidth / 50));
+         const annotationSize = Math.max(5, Math.min(15, screenWidth / 80));
          annotations.forEach(annotation => {
             annotation.style.width = `${annotationSize}px`;
             annotation.style.height = `${annotationSize}px`;
@@ -116,7 +116,7 @@
           infoBox.style.top = `${parseInt(annotation.style.top) + offsetY}px`;
       
           infoBox.innerHTML = annotationTexts[index] + `<br><a href="information.html?annotation=${index + 1}">Selengkapnya</a>`;
-
+          infoBox.style.length = '100px';
           infoBox.style.height = '30px'; // Tinggi otomatis berdasarkan konten
           infoBox.style.overflow = 'auto'; // Tambahkan scroll jika teks terlalu panjang
         });
